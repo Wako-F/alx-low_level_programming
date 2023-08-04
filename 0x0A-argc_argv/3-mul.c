@@ -21,6 +21,6 @@ if ((argc - 1) != 2)
 i = atoi(argv[1]);
 j = atoi(argv[2]);
 
-printf("%d\n", (i * j));
+printf("%d\n", (i *j));
 return (0);
 }
