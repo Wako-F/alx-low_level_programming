@@ -11,29 +11,32 @@
 
 char *string_nconcat(char *s1, char *s2, unsigned int n)
 {
-unsigned int i, j, k, l = 0;
 char *string;
+unsigned int i = 0, j = 0, k = 0, l = 0;
 
-if (s1 == NULL)
-	s1 = "";
-if (s2 == NULL)
-	s2 = "";
-/*count no. of chars*/
-while (s1[i] != '\0')
+while (s1 && s1[i])
 	i++;
-while (s2[j] != '\0')
+while (s2 && s2[j])
 	j++;
-/*control for n being bigger than j*/
-if (n >= j)
-	n = j;
-string = (char *)malloc(i + n + 1);
-if (string == NULL)
+if (n < j)
+	string = malloc(sizeof(char) * (i + n + 1));
+else
+	string = malloc(sizeof(char) * (i + j + 1));
+
+if (!string)
 	return (NULL);
-/*Concat strings. Firsst copies s1 to string, then n chars from s2 to string*/
-for (k = 0; s1[k] != '\0'; k++)
+while (k < i)
+{
 	string[k] = s1[k];
-for (l = 0; l < n; l++)
-	string[k + l] = s2[l];
-string[k + l] = '\0';
+	k++;
+}
+
+while (n < j && k < (i + n))
+	string[k++] = s2[l++];
+
+while (n >= j && k < (i + j))
+	string[k++] = s2[l++];
+string[k] = '\0';
+
 return (string);
 }
